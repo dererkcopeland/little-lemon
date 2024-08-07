@@ -40,7 +40,7 @@ fun Onboarding () {
             contentDescription = "logo",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.padding(10.dp)
-                .align(Alignment.CenterHorizontally)
+                .align(CenterHorizontally)
                 .fillMaxWidth()
         )
         Surface(
