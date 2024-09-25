@@ -3,13 +3,12 @@ package com.example.littlelemon
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 @Composable
-fun Navigation(navController: NavHostController){
+fun Navigation(navController: NavHostController, menuItems: List<MenuItemRoom>){
 
     val sharedPreferences = LocalContext.current.getSharedPreferences("LittleLemon", Context.MODE_PRIVATE)
     val email = sharedPreferences.getString("email", "")
@@ -25,7 +24,7 @@ fun Navigation(navController: NavHostController){
 
     NavHost(navController = navController, startDestination = startDestination){
         composable(Home.route){
-            Home(navController)
+            Home(navController, menuItems)
         }
         composable(Onboarding.route){
             Onboarding(navController)
