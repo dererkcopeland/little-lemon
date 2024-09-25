@@ -14,7 +14,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -26,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -82,7 +87,7 @@ fun Home(navController: NavHostController, menuItems: List<MenuItemRoom>){
                         color = Color.White
                     )
                     Text(
-                        modifier = Modifier.padding(top = 5.dp),
+                        modifier = Modifier.padding(top = 10.dp),
                         text = "We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist",
                         style = MaterialTheme.typography.bodyLarge,
                         color = Color.White
@@ -103,6 +108,44 @@ fun Home(navController: NavHostController, menuItems: List<MenuItemRoom>){
                 leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "search") },
             )
         }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp, start = 10.dp, end = 10.dp)
+        ) {
+            Text(
+                text = "ORDER FOR DELIVERY!",
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ){
+                AssistChip(
+                    onClick = { /*TODO*/ },
+                    label = { Text(text = "Starters") }
+                )
+                AssistChip(
+                    onClick = { /*TODO*/ },
+                    label = { Text(text = "Mains") }
+                )
+                AssistChip(
+                    onClick = { /*TODO*/ },
+                    label = { Text(text = "Desserts") }
+                )
+                AssistChip(
+                    onClick = { /*TODO*/ },
+                    label = { Text(text = "Drinks") }
+                )
+            }
+
+            HorizontalDivider(
+                modifier = Modifier.padding(10.dp),
+            )
+        }
+
 
     }
 }
