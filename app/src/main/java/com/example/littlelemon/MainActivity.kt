@@ -17,7 +17,6 @@ import com.example.littlelemon.ui.theme.LittleLemonTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             LittleLemonTheme {
                 Navigation(navController = rememberNavController())
