@@ -17,7 +17,9 @@ data class MenuItemRoom(
     val description: String,
     val price: String,
     val image: String,
-)
+    val category: String
+) {
+}
 
 @Dao
 interface MenuDao {
@@ -29,9 +31,12 @@ interface MenuDao {
 
     @Delete
     fun deleteMenuItem(menuItem: MenuItemRoom)
+
+    @Query("SELECT * FROM MenuItemRoom WHERE id = :id")
+    fun getMenuItem(id: Int): MenuItemRoom?
 }
 
-@Database(entities = [MenuItemRoom::class], version = 1)
+@Database(entities = [MenuItemRoom::class], version = 1, exportSchema = false)
 abstract class MenuDatabase : RoomDatabase() {
     abstract fun menuDao(): MenuDao
 

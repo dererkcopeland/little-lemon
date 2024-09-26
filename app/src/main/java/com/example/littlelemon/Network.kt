@@ -5,11 +5,6 @@ import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-class MenuNetworkData(
-
-){
-
-}
 
 @Serializable
 class MenuItemNetwork(
@@ -19,6 +14,7 @@ class MenuItemNetwork(
     val description: String,
     val price: String,
     val image: String,
+    val category: String
 )
 
 @SerialName("menu")

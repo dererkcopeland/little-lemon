@@ -2,6 +2,7 @@ package com.example.littlelemon
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -24,7 +25,7 @@ fun Navigation(navController: NavHostController, menuItems: List<MenuItemRoom>){
 
     NavHost(navController = navController, startDestination = startDestination){
         composable(Home.route){
-            Home(navController, menuItems)
+            Home(navController, menuItems.toMutableStateList())
         }
         composable(Onboarding.route){
             Onboarding(navController)

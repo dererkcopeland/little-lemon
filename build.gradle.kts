@@ -4,4 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
 
     id("org.jetbrains.kotlin.plugin.serialization") version "1.7.20" apply false
+    kotlin("kapt") version "2.0.20"
+
+    alias(libs.plugins.compose.compiler) apply false
+
 }

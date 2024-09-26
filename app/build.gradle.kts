@@ -1,9 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+
 
     id("kotlin-kapt")
     id("org.jetbrains.kotlin.plugin.serialization")
+
 }
 
 android {
@@ -86,5 +89,8 @@ dependencies {
     //GSON
     implementation("com.google.code.gson:gson:2.10")
 
+    //Glide
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    kapt("com.github.bumptech.glide:compiler:4.14.2")
 
 }
