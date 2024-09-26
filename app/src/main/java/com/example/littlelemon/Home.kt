@@ -60,6 +60,7 @@ fun HomePreview(){
 fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
 
     var menuList: MutableList<MenuItemRoom> = remember { mutableStateListOf() }
+
     var starters by remember { mutableStateOf(true)}
     var mains by remember { mutableStateOf(true)}
     var desserts by remember { mutableStateOf(true)}
@@ -246,7 +247,7 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
 @Composable
 fun MenuItemPreview(){
     MenuItem(menuItem = MenuItemRoom(1, "Pizza",
-        "PizzaPizzaPizzaPizzaPizzaPizzaPizzaPizzaPizza", "1.00", category = "mains",
+        "Testing Testing Testing Testing Testing ", "1.00", category = "mains",
         image = "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/images/pizzas.jpg"))
 }
 
