@@ -43,6 +43,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,6 +53,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.example.littlelemon.ui.theme.Green
+import com.example.littlelemon.ui.theme.Yellow
 
 @Preview(showSystemUi = true)
 @Composable
@@ -68,27 +73,35 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
     var desserts by remember { mutableStateOf(true)}
     var drinks by remember { mutableStateOf(true)}
 
-    if(starters){
-        //Add all starters to menuList
-        menuList.addAll(menu.filter { it.category == "starters" })
-    } else {
-        //Remove all starters from menuList
-        menuList.removeAll(menuList.filter { it.category == "starters" })
-    }
-    if(mains){
-        menuList.addAll(menu.filter { it.category == "mains" })
-    } else {
-        menuList.removeAll(menuList.filter { it.category == "mains" })
-    }
-    if(desserts){
-        menuList.addAll(menu.filter { it.category == "desserts" })
-    } else {
-        menuList.removeAll(menuList.filter { it.category == "desserts" })
-    }
-    if(drinks){
-        menuList.addAll(menu.filter { it.category == "drinks" })
-    } else {
-        menuList.removeAll(menuList.filter { it.category == "drinks" })
+    var searchPhrase by remember { mutableStateOf("") }
+
+
+
+        if (starters) {
+            //Add all starters to menuList
+            menuList.addAll(menu.filter { it.category == "starters" })
+        } else {
+            //Remove all starters from menuList
+            menuList.removeAll(menuList.filter { it.category == "starters" })
+        }
+        if (mains) {
+            menuList.addAll(menu.filter { it.category == "mains" })
+        } else {
+            menuList.removeAll(menuList.filter { it.category == "mains" })
+        }
+        if (desserts) {
+            menuList.addAll(menu.filter { it.category == "desserts" })
+        } else {
+            menuList.removeAll(menuList.filter { it.category == "desserts" })
+        }
+        if (drinks) {
+            menuList.addAll(menu.filter { it.category == "drinks" })
+        } else {
+            menuList.removeAll(menuList.filter { it.category == "drinks" })
+        }
+
+    if (searchPhrase.isNotBlank()) {
+        menuList = menuList.filter { it.title.lowercase().contains(searchPhrase.lowercase()) }.toMutableStateList()
     }
 
     menuList.sortBy { it.id }
@@ -122,15 +135,16 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.Green)
+                .background(Green)
                 .padding(10.dp)
         ) {
 
             Text(
                 modifier = Modifier.padding(top = 10.dp),
                 text = "Little Lemon",
-                style = MaterialTheme.typography.displayLarge,
-                color = Color.Yellow
+                style = TextStyle(fontFamily = FontFamily(Font(R.font.markazitextregular))),
+                color = Yellow,
+                fontSize = MaterialTheme.typography.displayLarge.fontSize
             )
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -140,7 +154,8 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
                 ) {
                     Text(
                         text = "Chicago",
-                        style = MaterialTheme.typography.displayMedium,
+                        style = TextStyle(fontFamily = FontFamily(Font(R.font.markazitextregular))),
+                        fontSize = MaterialTheme.typography.displayMedium.fontSize,
                         color = Color.White
                     )
                     Text(
@@ -154,13 +169,15 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
                 Image(
                     painter = painterResource(id = R.drawable.hero_image),
                     contentDescription = "hero image",
-                    modifier = Modifier.width(150.dp)
-                        .clip(RoundedCornerShape(10.dp))
+                    modifier = Modifier.width(120.dp)
+                        .clip(RoundedCornerShape(10.dp)),
+                    contentScale = ContentScale.FillWidth
                 )
             }
             OutlinedTextField(
-                value = "Enter search phrase",
-                onValueChange = {},
+                value = searchPhrase,
+                placeholder = { Text(text = "Enter search phrase") },
+                onValueChange = { searchPhrase = it },
                 modifier = Modifier.fillMaxWidth().padding(top = 10.dp).background(Color.White),
                 leadingIcon = { Icon(imageVector = Icons.Default.Search, contentDescription = "search") },
             )
@@ -185,7 +202,7 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
                     onClick = { starters = !starters },
                     selected = starters,
                     colors = FilterChipDefaults.filterChipColors(
-                        labelColor = Color.Green
+                        labelColor = Green
                     )
                 )
                 FilterChip(
@@ -263,13 +280,11 @@ fun MenuItem(menuItem: MenuItemRoom){
                 Text(
                     text = menuItem.description,
                     style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(10.dp),
                 )
                 Text(
-                    text = menuItem.price,
+                    text = "$" + menuItem.price.toDouble(),
                     style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(10.dp),
                 )
             }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="karlaregular">
+        <item name="android:fontFamily">karlaregular.ttf</item>
+    </style>
+    <style name="markazitextregular">
+        <item name="android:fontFamily">markazitextregular.ttf</item>
+    </style>
+</resources>
