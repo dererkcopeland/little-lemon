@@ -1,6 +1,5 @@
 package com.example.littlelemon
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,17 +17,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -65,9 +58,8 @@ fun HomePreview(){
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
-    val context = LocalContext.current
 
-    var menuList: MutableList<MenuItemRoom> = remember { mutableStateListOf<MenuItemRoom>() }
+    var menuList: MutableList<MenuItemRoom> = remember { mutableStateListOf() }
     var starters by remember { mutableStateOf(true)}
     var mains by remember { mutableStateOf(true)}
     var desserts by remember { mutableStateOf(true)}
@@ -104,8 +96,10 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
         menuList = menuList.filter { it.title.lowercase().contains(searchPhrase.lowercase()) }.toMutableStateList()
     }
 
+    //Sort menuList by id
     menuList.sortBy { it.id }
 
+    //Remove duplicates
     menuList = menuList.distinct().toMutableStateList()
 
 
@@ -210,7 +204,7 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
                     selected = mains,
                     label = { Text(text = "Mains") },
                     colors = FilterChipDefaults.filterChipColors(
-                        labelColor = Color.Green
+                        labelColor = Green
                     )
                 )
                 FilterChip(
@@ -218,7 +212,7 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
                     selected = desserts,
                     label = { Text(text = "Desserts") },
                     colors = FilterChipDefaults.filterChipColors(
-                        labelColor = Color.Green
+                        labelColor = Green
                     )
                 )
                 FilterChip(
@@ -226,7 +220,7 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
                     selected = drinks,
                     label = { Text(text = "Drinks") },
                     colors = FilterChipDefaults.filterChipColors(
-                        labelColor = Color.Green
+                        labelColor = Green
                     )
                 )
             }
