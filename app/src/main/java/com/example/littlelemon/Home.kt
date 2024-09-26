@@ -67,30 +67,31 @@ fun Home(navController: NavHostController, menu: MutableList<MenuItemRoom>){
 
     var searchPhrase by remember { mutableStateOf("") }
 
+    menuList.clear()
+    menuList.addAll(menu)
 
-
-        if (starters) {
-            //Add all starters to menuList
-            menuList.addAll(menu.filter { it.category == "starters" })
-        } else {
-            //Remove all starters from menuList
-            menuList.removeAll(menuList.filter { it.category == "starters" })
-        }
-        if (mains) {
-            menuList.addAll(menu.filter { it.category == "mains" })
-        } else {
-            menuList.removeAll(menuList.filter { it.category == "mains" })
-        }
-        if (desserts) {
-            menuList.addAll(menu.filter { it.category == "desserts" })
-        } else {
-            menuList.removeAll(menuList.filter { it.category == "desserts" })
-        }
-        if (drinks) {
-            menuList.addAll(menu.filter { it.category == "drinks" })
-        } else {
-            menuList.removeAll(menuList.filter { it.category == "drinks" })
-        }
+    if (starters) {
+        //Add all starters to menuList
+        menuList.addAll(menu.filter { it.category == "starters" })
+    } else {
+        //Remove all starters from menuList
+        menuList.removeAll(menuList.filter { it.category == "starters" })
+    }
+    if (mains) {
+        menuList.addAll(menu.filter { it.category == "mains" })
+    } else {
+        menuList.removeAll(menu.filter { it.category == "mains" })
+    }
+    if (desserts) {
+        menuList.addAll(menu.filter { it.category == "desserts" })
+    } else {
+        menuList.removeAll(menuList.filter { it.category == "desserts" })
+    }
+    if (drinks) {
+        menuList.addAll(menu.filter { it.category == "drinks" })
+    } else {
+        menuList.removeAll(menuList.filter { it.category == "drinks" })
+    }
 
     if (searchPhrase.isNotBlank()) {
         menuList = menuList.filter { it.title.lowercase().contains(searchPhrase.lowercase()) }.toMutableStateList()
