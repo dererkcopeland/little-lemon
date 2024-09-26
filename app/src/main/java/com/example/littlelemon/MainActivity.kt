@@ -9,7 +9,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
@@ -34,17 +33,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-//    private val menuItemsLiveData = MutableLiveData<List<MenuItemRoom>>()
-
     private val database by lazy {
         Room.databaseBuilder(applicationContext, MenuDatabase::class.java, "menu.db").build()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
 
         setContent {
             LittleLemonTheme {
@@ -67,9 +61,9 @@ class MainActivity : ComponentActivity() {
     private suspend fun retrieveMenu() {
 
         // Get menu items from api call
-        val response =
-            client.get("https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json")
-                .bodyAsText()
+        val response = client
+            .get("https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/menu.json")
+            .bodyAsText()
 
         // Parse JSON response
         val menuNetwork = Gson().fromJson(response, MenuNetwork::class.java)
